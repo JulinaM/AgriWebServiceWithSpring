@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">
+            org.hibernate.dialect.MySQLDialect
+        </property>
+        <property name="hibernate.connection.driver_class">
+            com.mysql.jdbc.Driver
+        </property>
+
+        <!-- Assume test is the database name
+        <property name="hibernate.connection.url">
+            jdbc:mysql://127.8.250.130:3306/krishighar
+        </property>
+        <property name="hibernate.connection.username">
+            adminMT6HhZ7
+        </property>
+        <property name="hibernate.connection.password">
+            quBUVjwuschk
+        </property> -->
+       <property name="hibernate.connection.url">
+            jdbc:mysql://localhost:3306/krishighar
+        </property>
+        <property name="hibernate.connection.username">
+            root
+        </property>
+        <property name="hibernate.connection.password">
+            julina1
+        </property><!--  -->
+
+        <mapping class="com.krishighar.pojo.db.LocationPojo" />
+        <mapping class="com.krishighar.pojo.db.CropPojo"></mapping>
+        <mapping class="com.krishighar.pojo.db.LocationsCropPojo"></mapping>
+        <mapping class="com.krishighar.pojo.db.User"></mapping>
+        <mapping class="com.krishighar.pojo.db.UserRole"></mapping>
+        <mapping class="com.krishighar.pojo.db.SubscriptionPojo"></mapping>
+        <mapping class="com.krishighar.pojo.db.SubscriberInfoPojo"></mapping>
+        <mapping class="com.krishighar.pojo.db.InfoClientPojo"></mapping>
+        <mapping class="com.krishighar.pojo.db.InfoPojo"></mapping>
+    </session-factory>
+</hibernate-configuration>

@@ -1,0 +1,101 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <!-- MySQL data source -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+             <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <!--      <property name="url" value="jdbc:mysql://127.8.250.130:3306/krishighar" />
+             <property name="username" value="adminMT6HhZ7" />
+            <property name="password" value="quBUVjwuschk" /> -->
+           <property name="url" value="jdbc:mysql://localhost:3306/krishighar" />
+            <property name="username" value="root" />
+            <property name="password" value="julina1" />
+   </bean>
+
+   <!-- Hibernate session factory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>
+                <value>com.krishighar.pojo.db.User</value>
+                <value>com.krishighar.pojo.db.LocationPojo</value>
+                <value>com.krishighar.pojo.db.CropPojo</value>
+                <value>com.krishighar.pojo.db.UserRole</value>
+                <value>com.krishighar.pojo.db.SubscriptionPojo</value>
+                <value>com.krishighar.pojo.db.InfoPojo</value>
+                <value>com.krishighar.pojo.db.LocationsCropPojo</value>
+                <value>com.krishighar.pojo.db.InfoClientPojo</value>
+                <value>com.krishighar.pojo.db.SubscriberInfoPojo</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                    org.hibernate.dialect.MySQL5Dialect
+                </prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="userDao" class="com.krishighar.dao.UserDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean name="locationDao" id="locationDao" class="com.krishighar.dao.LocationDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean name="infoDao2" id="infoDao2" class="com.krishighar.dao.InfoDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean name="gcmInfoDao2" id="gcmInfoDao2" class="com.krishighar.dao.GcmInfoDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    <bean id="subscriberDao" class="com.krishighar.dao.SubscriberDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="CropDao" class="com.krishighar.dao.CropDao">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="UserDao2" class="com.krishighar.dao.UserDao2">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+
+    <bean id="myUserDetailsService"
+          class="com.krishighar.utils.MyUserDetailsService">
+        <property name="userDao" ref="userDao" />
+    </bean>
+
+    <!-- MUST have transaction manager, using aop and aspects  -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" />
+            <tx:method name="find*" read-only="true" />
+            <tx:method name="*" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="userServicePointCut"
+                      expression="execution(* com.krishighar.utils.*Service.*(..))" />
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
+    </aop:config>
+
+</beans>
