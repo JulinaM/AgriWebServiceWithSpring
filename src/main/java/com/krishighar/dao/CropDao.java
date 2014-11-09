@@ -11,7 +11,6 @@ import java.util.List;
  * Created by julina on 10/7/14.
  */
 public class CropDao {
-    private String tableName= "crop";
     private SessionFactory sessionFactory;
 
     public List<CropPojo> getCrops(){

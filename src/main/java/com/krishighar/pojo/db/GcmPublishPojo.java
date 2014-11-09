@@ -8,6 +8,9 @@ import java.util.List;
  */
 public class GcmPublishPojo {
 
+    InfoPojo infoPojo;
+    ArrayList<String> tags;
+    List<String> regIds;
     public ArrayList<String> getTags() {
         return tags;
     }
@@ -15,8 +18,6 @@ public class GcmPublishPojo {
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
-
-    ArrayList<String> tags;
 
     public InfoPojo getInfoPojo() {
         return infoPojo;
@@ -26,8 +27,6 @@ public class GcmPublishPojo {
         this.infoPojo = infoPojo;
     }
 
-    InfoPojo infoPojo;
-
     public List<String> getRegIds() {
         return regIds;
     }
@@ -36,5 +35,4 @@ public class GcmPublishPojo {
         this.regIds = regIds;
     }
 
-    List<String> regIds;
 }

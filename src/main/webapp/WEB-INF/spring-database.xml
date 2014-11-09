@@ -18,7 +18,7 @@
             <property name="password" value="quBUVjwuschk" /> -->
            <property name="url" value="jdbc:mysql://localhost:3306/krishighar" />
             <property name="username" value="root" />
-            <property name="password" value="julina1" />
+            <property name="password" value="julina12" />
    </bean>
 
    <!-- Hibernate session factory -->

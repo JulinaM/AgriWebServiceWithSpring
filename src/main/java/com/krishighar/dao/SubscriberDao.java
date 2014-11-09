@@ -23,7 +23,7 @@ public class SubscriberDao {
 
     private SessionFactory sessionFactory;
 
-    public void insert(String deviceId,String phoneNumber ,JSONArray tags) throws
+    public void insert(String deviceId, String regId, String phoneNumber ,JSONArray tags) throws
             AgriException.NullPointerException, SQLException {
         if(deviceId == null)
             throw new AgriException.NullPointerException(ErrorMessages.NULL_USER_ID.toString());
@@ -40,7 +40,7 @@ public class SubscriberDao {
         }
         SubscriberInfoPojo subscriberInfoPojo = new SubscriberInfoPojo();
         subscriberInfoPojo.setDeviceId(deviceId);
-        subscriberInfoPojo.setRegId("regId");
+        subscriberInfoPojo.setRegId(regId);
         subscriberInfoPojo.setPhoneNumber(phoneNumber);
         subscriberInfoPojo.setSubscriptionPojos(subscriptionPojos);
         session.persist(subscriberInfoPojo);

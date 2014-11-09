@@ -12,31 +12,18 @@ import java.util.List;
 @Entity
 @Table(name="info")
 public class InfoPojo {
+    private int infoId;
+    private  String titleEn;
+    private String titleNp;
+    private String dataEn;
+    private String dataNp;
+    private Date timestamp;
+    private String infoFrom;
+    private List<InfoClientPojo> infoClientPojos;
+
     @Id
     @Column(name="id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int infoId;
-    @Column(name = "title_en")
-    private  String titleEn;
-    @Column(name = "title_np")
-    private String titleNp;
-    @Column(name = "data_en")
-    private String dataEn;
-    @Column(name = "data_np")
-    private String dataNp;
-    @Column(name = "info_from")
-    private String infoFrom;
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "timestamp",
-            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
-    private Date timestamp;
-
-    @ManyToMany(targetEntity = InfoClientPojo.class,
-            mappedBy = "infoPojos",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    private List<InfoClientPojo> infoClientPojos;
-
     public int getInfoId() {
         return infoId;
     }
@@ -45,6 +32,7 @@ public class InfoPojo {
         this.infoId = infoId;
     }
 
+    @Column(name = "info_from")
     public String getInfoFrom() {
         return infoFrom;
     }
@@ -53,6 +41,10 @@ public class InfoPojo {
         this.infoFrom = infoFrom;
     }
 
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "timestamp",
+            columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     public Date getTimestamp() {
         return timestamp;
     }
@@ -61,6 +53,7 @@ public class InfoPojo {
         this.timestamp = timestamp;
     }
 
+    @Column(name = "title_en")
     public String getTitleEn() {
         return titleEn;
     }
@@ -69,6 +62,7 @@ public class InfoPojo {
         this.titleEn = titleEn;
     }
 
+    @Column(name = "title_np")
     public String getTitleNp() {
         return titleNp;
     }
@@ -77,6 +71,7 @@ public class InfoPojo {
         this.titleNp = titleNp;
     }
 
+    @Column(name = "data_en")
     public String getDataEn() {
         return dataEn;
     }
@@ -85,6 +80,7 @@ public class InfoPojo {
         this.dataEn = dataEn;
     }
 
+    @Column(name = "data_np")
     public String getDataNp() {
         return dataNp;
     }
@@ -93,6 +89,10 @@ public class InfoPojo {
         this.dataNp = dataNp;
     }
 
+    @ManyToMany(targetEntity = InfoClientPojo.class,
+            mappedBy = "infoPojos",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     public List<InfoClientPojo> getInfoClientPojos() {
         return infoClientPojos;
     }

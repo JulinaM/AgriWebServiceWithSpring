@@ -28,7 +28,7 @@
             root
         </property>
         <property name="hibernate.connection.password">
-            julina1
+            julina12
         </property><!--  -->
 
         <mapping class="com.krishighar.pojo.db.LocationPojo" />

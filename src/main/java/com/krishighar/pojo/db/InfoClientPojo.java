@@ -18,10 +18,7 @@ public class InfoClientPojo {
     @Column(name = "tag")
     private String tag;
 
-    @ManyToMany(targetEntity = InfoPojo.class,
-            mappedBy = "infoClientPojos",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "infoClientPojos")
     private List<InfoPojo> infoPojos;
 
 

@@ -30,7 +30,8 @@ public class Subscription {
             String deviceId = requestJson.getString("deviceId");
             String phoneNumber = requestJson.getString("phoneNumber");
             JSONArray tags = requestJson.getJSONArray("tags");
-            subscriberDao.insert(deviceId,phoneNumber ,tags);
+            String regId = requestJson.getString("regId");
+            subscriberDao.insert(deviceId, regId, phoneNumber ,tags);
             responseJson.put(ResponseJson.ERROR, false);
             responseJson.put(ResponseJson.ERROR_CODE, 200);
             responseJson.put(ResponseJson.MESSAGE, "success");

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 public class GcmPushMessagePojo {
 
     String infoTitle;
+    String infoBody;
+    ArrayList<String> tags;
+    long timestamp;
 
     public String getInfoBody() {
         return infoBody;
@@ -33,7 +36,6 @@ public class GcmPushMessagePojo {
         this.timestamp = timestamp;
     }
 
-    String infoBody;
 
     public String getInfoTitle() {
         return infoTitle;
@@ -43,8 +45,6 @@ public class GcmPushMessagePojo {
         this.infoTitle = infoTitle;
     }
 
-    ArrayList<String> tags;
-    long timestamp;
     public GcmPushMessagePojo initItems(GcmPublishPojo gcmPublishPojo){
         this.setInfoTitle(gcmPublishPojo.getInfoPojo().getTitleEn());
         this.setInfoBody(gcmPublishPojo.getInfoPojo().getDataEn());
