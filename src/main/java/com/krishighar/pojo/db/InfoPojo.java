@@ -1,7 +1,10 @@
 package com.krishighar.pojo.db;
 
+import com.krishighar.resource.InfoClient;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by julina on 10/9/14.
@@ -28,9 +31,11 @@ public class InfoPojo {
             columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private InfoClientPojo infoClientPojo;
+    @ManyToMany(targetEntity = InfoClientPojo.class,
+            mappedBy = "infoPojos",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    private List<InfoClientPojo> infoClientPojos;
 
     public int getInfoId() {
         return infoId;
@@ -88,11 +93,11 @@ public class InfoPojo {
         this.dataNp = dataNp;
     }
 
-    public InfoClientPojo getInfoClientPojo() {
-        return infoClientPojo;
+    public List<InfoClientPojo> getInfoClientPojos() {
+        return infoClientPojos;
     }
 
-    public void setInfoClientPojo(InfoClientPojo infoClientPojo) {
-        this.infoClientPojo = infoClientPojo;
+    public void setInfoClientPojos(List<InfoClientPojo> infoClientPojos) {
+        this.infoClientPojos = infoClientPojos;
     }
 }

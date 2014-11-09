@@ -4,6 +4,7 @@ import com.krishighar.pojo.db.GcmPublishPojo;
 import com.krishighar.pojo.db.InfoClientPojo;
 import com.krishighar.pojo.db.InfoPojo;
 import com.krishighar.pojo.db.LocationsCropPojo;
+import com.krishighar.resource.InfoClient;
 import com.mkyong.customer.model.Info;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,15 +30,17 @@ public class InfoDao {
         ArrayList<String> validTags = getValidTags(info,session);
         if(fromUser==null || validTags.isEmpty())return null;
 
-        InfoClientPojo infoClientPojo= new InfoClientPojo();
-        infoClientPojo.setTag("tag");
-
+        List<InfoClientPojo> infoClientPojos = new ArrayList<InfoClientPojo>(validTags.size());
+        for(String tag:validTags){
+            InfoClientPojo infoClientPojo= new InfoClientPojo();
+            infoClientPojo.setTag(tag);
+            infoClientPojos.add(infoClientPojo);
+        }
         InfoPojo infoPojo = new InfoPojo();
         infoPojo.setTitleEn(info.getTitle());
         infoPojo.setDataEn(info.getBody());
         infoPojo.setInfoFrom(fromUser);
-        infoPojo.setInfoClientPojo(infoClientPojo);
-
+        infoPojo.setInfoClientPojos(infoClientPojos);
         Transaction tx = session.beginTransaction();
         session.persist(infoPojo);
         tx.commit();
@@ -64,13 +67,12 @@ public class InfoDao {
     }
 
 
-    //TODO
     public List<InfoPojo> getInfos(String tag){
         Session session = this.sessionFactory.openSession();
         List<InfoClientPojo> infoIds = (List<InfoClientPojo>)session.createQuery("from InfoClientPojo where tag= :tag").setParameter("tag",tag).list();
         List<Integer> infoInt = new ArrayList<Integer>(infoIds.size());
         for(InfoClientPojo infoPojo:infoIds){
-            //infoInt.add(new Integer(infoPojo.getInfoPojos()));
+            //infoInt.add(new Integer(infoPojo.getInfoId()));
         }
         List<InfoPojo> infoPojos = (List<InfoPojo>) session.createCriteria(InfoPojo.class).add(Restrictions.in("id",infoInt)).list();
         session.close();
